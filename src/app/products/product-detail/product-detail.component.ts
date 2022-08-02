@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {select, Store} from '@ngrx/store';
 import { single, switchMap, take } from 'rxjs';
 import { getProductDetailSelector, getProductsPageSelector } from 'src/app/store/product.selector';
@@ -21,13 +21,18 @@ export class ProductDetailComponent implements OnInit {
     variety:'',
     notes:'',
     intensifier:''};
-  constructor(private route: ActivatedRoute,private store:Store<any>,private productService:ProductService) { 
+  constructor(private route: ActivatedRoute,private store:Store<any>,private productService:ProductService,private _router:Router) { 
   
   }
 
   ngOnInit(): void {
 
   this.data=this.productService.getProductDetails();
+
+  if(this.data.blend_name === '')
+  {
+    this._router.navigate(['']);
+  }
     
   }
 

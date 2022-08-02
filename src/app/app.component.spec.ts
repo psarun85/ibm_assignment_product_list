@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
@@ -30,6 +31,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('ibm_assignment_product_list app is running!');
+    expect(compiled.querySelector('.coffeeshop--header h2')?.textContent).toContain('Coffee Shop');
   });
 });
