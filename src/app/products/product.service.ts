@@ -9,12 +9,24 @@ import { Product, ProductList } from './product.model';
 export class ProductService {
 
     http: HttpClient;
-
+    currentProduct:Product;
     constructor(http: HttpClient) {
       this.http = http;
+      this.currentProduct={
+ id:0,blend_name:'',uid:'',orgin:'',variety:'',intensified:'',notes:''}
+      ;
     }
      getProducts():Observable<Product[]>{
         return this.http.get<Product[]>('https://random-data-api.com/api/coffee/random_coffee?size=50');
      }
+
+     setProduct(product:Product){
+      this.currentProduct=product;
+     }
+
+     getProductDetails(){
+      return this.currentProduct;
+     }
+
 
 }

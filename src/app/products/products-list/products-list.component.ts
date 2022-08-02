@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {filter, Observable, Subject,takeUntil} from 'rxjs'
+import {BehaviorSubject, filter, Observable, Subject,takeUntil,switchMap, tap} from 'rxjs'
 import {select, Store} from '@ngrx/store';
 import { Product, ProductList } from '../product.model';
 import { ProductService } from '../product.service';
 import { ProductState } from 'src/app/store/product.reducer';
 import { ProductActionType, ProductsAction, GetProducts } from 'src/app/store/product.actions';
-import { getProductListSelector } from 'src/app/store/product.selector';
+import { getProductListSelector, getProductsPageSelector ,getIfDataLoadedSelector} from 'src/app/store/product.selector';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-products-list',
@@ -14,30 +15,45 @@ import { getProductListSelector } from 'src/app/store/product.selector';
 })
 export class ProductsListComponent implements OnInit {
   public ngDestroyed$ = new Subject();
-  //productList$:Product[];
-  constructor(private productService:ProductService,private store:Store<any>) { 
+  //products:Product[]=[];
+  currentPage$=new BehaviorSubject<number>(1);
+  
+  products$=this.store.pipe(select(getProductsPageSelector(this.currentPage$.value)));
+
+  constructor(private productService:ProductService,private store:Store<any>,private _router:Router) { 
         
   }
 
   ngOnInit(): void {
-  //this.store.dispatch(new GetProducts({}))
-
-   /*this.productService.getProducts().subscribe(data =>{
-       console.log(data);
-   })*/
-   this.loadProducts();
-   this.store.dispatch(new GetProducts({}));  
   
-
+  this.store.pipe(select(getIfDataLoadedSelector)).subscribe(hasLoaded=>{
+    if(!hasLoaded)
+    {
+      this.store.dispatch(new GetProducts({})); 
+    }
+  });
+    
 
 
   }
-
-  loadProducts(){
-    this.store.select(getProductListSelector).pipe().subscribe(data=>{
-      console.log(data);
-     }); 
+  nextPage(){
+    this.currentPage$.next(this.currentPage$.value +1);
+    this.getProductsPage();
   }
-
-
+  previousPage(){
+    if(this.currentPage$.value > 1)
+    {
+      this.currentPage$.next(this.currentPage$.value -1);
+      this.getProductsPage();
+    }
+  }
+  getProductsPage(){
+    this.products$=this.store.pipe(select(getProductsPageSelector(this.currentPage$.value))); 
+    console.log(this.products$);
+  }
+  gotoDetailspage(product:Product,id:number)
+  {
+    this.productService.setProduct(product);
+    this._router.navigate(['product-detail',id]);
+  }
 }

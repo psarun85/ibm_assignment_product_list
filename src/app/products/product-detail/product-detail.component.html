@@ -1,1 +1,9 @@
 <p>product-detail works!</p>
+<button [routerLink]="['']" > Back to Product List </button>
+<router-outlet></router-outlet>
+<hr>
+
+
+<ng-template #itemNotFound>
+    This item doesn't exist!
+  </ng-template>

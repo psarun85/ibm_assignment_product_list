@@ -7,17 +7,17 @@ export const stateNameKey:string ="ProductState";
 
 export interface ProductState{
     products:Product[],
-    errorMessage:string
+    hasLoaded:boolean
 }
 const initState:ProductState={
     products:[],
-    errorMessage:""
+    hasLoaded:false,
 }
 export function ProductReducer(state:ProductState=initState, action:Action) : ProductState{
    switch(action.type){
     case productActions.ProductActionType.GET_PRODUCTS_SUCCESS:
         {           
-        return {...state,products:(<productActions.ProductsAction>action).payload }
+        return {...state,products:(<productActions.ProductsAction>action).payload ,hasLoaded:true}
         }
     default: return {...state}    
    }
