@@ -1,9 +1,37 @@
-<button class="btn btn-primary btn-small pull-left m-2" (click)="previousPage()"> Previous </button>
+<div class="product-list">
+<div class="product-list--pagination">
+<div class="product-list--pagination-buttons">
+<button class="btn btn-info btn-small pull-left m-2" (click)="previousPage()"> Previous </button>
+</div>
+<div class="product-list--pagination-buttons">
 <span class="">  Page No : {{currentPage$.value }}</span>
-<button class="btn btn-primary btn-small pull-right m-2" (click)="nextPage()"> Next </button>
+</div>
+<div class="product-list--pagination-buttons">
+<button class="btn btn-info btn-small pull-right m-2" (click)="nextPage()"> Next </button>
+</div>
+</div>
+<div class="product-list--container">
+<div  class="product-list--item"  *ngFor="let product of products$ | async">
+    <div class="row">
+        <div class="col-4">
+            <img src="https://via.placeholder.com/100"/>
+        </div>
+        <div class="col-8">
+            <div class="h3"> {{product.blend_name}}</div>
+            <span> <strong> Origin: </strong>{{ product.origin}}</span><br/>
+            <span> <strong> intensified: </strong>{{ product.intensifier}}</span><br/>
+            <span> <strong> Variety:</strong>  {{ product.variety}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button (click)="gotoDetailspage(product,product.id)" class="btn btn-success btn-sm pull-right">Details </button>
+        </div>
+    </div>
 
-<div (click)="gotoDetailspage(product,product.id)" class="card m1"  *ngFor="let product of products$ | async">
-    <div class="h6"> {{product.blend_name}}</div>
-    <div> {{product.notes}}</div>
+
+  
+</div>
 </div>
 <router-outlet></router-outlet>
+</div>

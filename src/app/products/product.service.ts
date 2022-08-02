@@ -13,7 +13,7 @@ export class ProductService {
     constructor(http: HttpClient) {
       this.http = http;
       this.currentProduct={
- id:0,blend_name:'',uid:'',orgin:'',variety:'',intensified:'',notes:''}
+ id:0,blend_name:'',uid:'',origin:'',variety:'',intensifier:'',notes:''}
       ;
     }
      getProducts():Observable<Product[]>{

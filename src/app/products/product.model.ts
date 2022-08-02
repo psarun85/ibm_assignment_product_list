@@ -2,10 +2,10 @@ export interface Product{
     id:number;
     uid:string;
     blend_name:string;
-    orgin:string;
+    origin:string;
     variety:string;
     notes:string;
-    intensified:string;
+    intensifier:string;
 
 }
 

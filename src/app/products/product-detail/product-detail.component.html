@@ -1,9 +1,37 @@
-<p>product-detail works!</p>
-<button [routerLink]="['']" > Back to Product List </button>
+
+<button [routerLink]="['']" class="btn btn-primary"> Back to Product List </button>
 <router-outlet></router-outlet>
-<hr>
-
-
-<ng-template #itemNotFound>
-    This item doesn't exist!
-  </ng-template>
+<div class="container p-3">
+<table class="table table-striped">
+    <tbody>
+    <tr>
+        <td> ID</td>
+        <td> {{data.id}}</td>
+    </tr>
+    <tr>
+        <td> UID</td>
+        <td> {{data.uid}}</td>
+    </tr>
+    <tr>
+        <td> Blend Name</td>
+        <td> {{data.blend_name}}</td>
+    </tr>
+    <tr>
+        <td> Origin</td>
+        <td> {{data.origin}}</td>
+    </tr>
+    <tr>
+        <td> Variety</td>
+        <td> {{data.variety}}</td>
+    </tr>
+    <tr>
+        <td> Intensifier</td>
+        <td> {{data.intensifier}}</td>
+    </tr>
+    <tr>
+        <td> Notes</td>
+        <td> {{data.notes}}</td>
+    </tr>
+</tbody>
+</table>
+</div>

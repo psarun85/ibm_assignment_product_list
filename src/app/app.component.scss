@@ -1,0 +1,18 @@
+$small:750px;
+$md:992px;
+$large:1200px;
+.coffeeshop
+{
+    padding:2em;
+    @media screen and (max-width: $md) {
+
+      }
+    
+  &--header{
+   padding:2em;
+  }
+  &--footer{
+    padding:3em;
+    text-align: center;
+  }
+}

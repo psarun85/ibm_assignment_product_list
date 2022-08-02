@@ -14,17 +14,21 @@ export class ProductDetailComponent implements OnInit {
   
   id:number=0;
   //roduct$=;
-
+  data:Product={    id:0,
+    uid:'',
+    blend_name:'',
+    origin:'',
+    variety:'',
+    notes:'',
+    intensifier:''};
   constructor(private route: ActivatedRoute,private store:Store<any>,private productService:ProductService) { 
   
   }
 
   ngOnInit(): void {
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
-   console.log( this.productService.getProductDetails());
-    this.store.pipe(select(getProductDetailSelector(this.id))).subscribe(
-    (products)=>{console.log(products)}
-    );
+
+  this.data=this.productService.getProductDetails();
+    
   }
 
 }

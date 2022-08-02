@@ -37,8 +37,12 @@ export class ProductsListComponent implements OnInit {
 
   }
   nextPage(){
-    this.currentPage$.next(this.currentPage$.value +1);
-    this.getProductsPage();
+    if(this.currentPage$.value < 5 )
+    {
+      this.currentPage$.next(this.currentPage$.value +1);
+      this.getProductsPage();
+    }
+  
   }
   previousPage(){
     if(this.currentPage$.value > 1)
